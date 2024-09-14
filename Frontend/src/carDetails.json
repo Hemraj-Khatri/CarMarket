@@ -1,0 +1,145 @@
+{
+  "formFields": [
+    {
+      "label": "Listing Title",
+      "name": "listingTitle",
+      "type": "text",
+      "icon": "FaClipboardList",
+      "required": true
+    },
+    {
+      "label": "Tagline",
+      "name": "tagline",
+      "type": "text",
+      "icon": "FaTag",
+      "required": true
+    },
+    {
+      "label": "Original Price",
+      "name": "originalPrice",
+      "type": "text",
+      "icon": "CiDollar",
+      "required": false
+    },
+    {
+      "label": "Selling Price",
+      "name": "sellingPrice",
+      "type": "text",
+      "icon": "FaRegMoneyBillAlt",
+      "required": true
+    },
+    {
+      "label": "Category",
+      "name": "category",
+      "type": "select",
+      "icon": "FaCar",
+      "required": true,
+      "options": [
+        "Category",
+        "Sedan",
+        "SUV",
+        "Truck",
+        "Coupe",
+        "Convertible",
+        "Van",
+        "Hatchback",
+        "Electric",
+        "Hybrid"
+      ]
+    },
+    {
+      "label": "Condition",
+      "name": "condition",
+      "type": "select",
+      "icon": "TiTick",
+      "required": true,
+      "options": ["Condition", "New", "Used", "Certified Pre-Owned"]
+    },
+    {
+      "label": "Make",
+      "name": "make",
+      "type": "select",
+      "icon": "HiColorSwatch",
+      "required": true,
+      "options": [
+        "Make",
+        "Toyota",
+        "Honda",
+        "Ford",
+        "Audi",
+        "Tesla",
+        "BMW",
+        "Volkswagen",
+        "Hyundai",
+        "Nissan"
+      ]
+    },
+    {
+      "label": "Model",
+      "name": "model",
+      "type": "text",
+      "icon": "FaCarSide",
+      "required": true
+    },
+    {
+      "label": "Year",
+      "name": "year",
+      "type": "number",
+      "icon": "FaRegCalendarAlt",
+      "required": true
+    },
+    {
+      "label": "Drive Type",
+      "name": "driveType",
+      "type": "select",
+      "icon": "FaRoad",
+      "required": true,
+      "options": ["Drive Type", "FWD", "RWD", "AWD", "4WD"]
+    },
+    {
+      "label": "Transmission",
+      "name": "transmission",
+      "type": "select",
+      "icon": "FaTransgenderAlt",
+      "required": true,
+      "options": ["Transmission", "Automatic", "Manual", "CVT"]
+    },
+    {
+      "label": "Fuel Type",
+      "name": "fuelType",
+      "type": "select",
+      "icon": "BsFillFuelPumpFill",
+      "required": true,
+      "options": ["Fuel Type", "Petrol", "Diesel", "Electric", "Hybrid"]
+    },
+    {
+      "label": "Mileage",
+      "name": "mileage",
+      "type": "number",
+      "icon": "IoIosSpeedometer",
+      "required": true
+    },
+    {
+      "label": "Cylinder",
+      "name": "cylinder",
+      "type": "number",
+      "icon": "FaCircle",
+      "required": false
+    },
+    {
+      "label": "Door",
+      "name": "door",
+      "type": "number",
+      "icon": "FaDoorClosed",
+      "required": true
+    },
+    {
+      "label": "Offer Type",
+      "name": "offerType",
+      "type": "select",
+      "icon": "FaTags",
+      "required": true,
+      "options": ["Type Offer", "Buy", "Hot Offer", "Sell", "Urgent"]
+    }
+  ]
+}
