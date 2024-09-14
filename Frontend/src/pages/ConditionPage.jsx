@@ -31,6 +31,7 @@ function ConditionPage() {
   return (
     <div>
       {/* New Condition Cars */}
+      {/* this is for just demo */}
       {NewConditionLoading ? (
         <h1>Loading...</h1>
       ) : (
