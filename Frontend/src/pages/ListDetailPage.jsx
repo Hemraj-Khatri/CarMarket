@@ -75,6 +75,8 @@ function ListDetailPage() {
   const addToCartHandler = (item) => {
     console.log("Adding item to cart:", item.data);
     dispatch(addToCart(item.data));
+    // console.log("Adding item to cart:", item.data);
+    // dispatch(addToCart(item.data));
     navigate("/cart");
   };
 
@@ -146,7 +148,7 @@ function ListDetailPage() {
                 </button>
                 <button
                   className="bg-blue-600 py-2 text-white rounded-md cursor-pointer px-4 hover:bg-blue-500 my-5"
-                  onClick={() => addToCartHandler(getCarById)}
+                  onClick={() => addToCartHandler({ ...getCarById, qty: 1 })}
                 >
                   Add To Cart
                 </button>
