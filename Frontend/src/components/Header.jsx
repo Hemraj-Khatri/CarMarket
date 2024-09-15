@@ -52,9 +52,7 @@ export default function Header() {
             <li>
               <Link to="/">Home</Link>
             </li>
-            <li>
-              <Link to="/category">Category</Link>
-            </li>
+        
             <li>
               <Link to="/condition">Condition</Link>
             </li>
@@ -75,14 +73,12 @@ export default function Header() {
           <li>
             <Link to="/" className="text-xl font-semibold hover:text-primary">Home</Link>
           </li>
-          <li>
-            <Link to="/category" className="text-xl font-semibold hover:text-primary">Category</Link>
-          </li>
+        
           <li>
             <Link to="/condition" className="text-xl font-semibold hover:text-primary">Condition</Link>
           </li>
           <li>
-            <Link to="/contact" className="text-xl font-semibold hover:text-primary">Contact</Link>
+            <Link to="/contact" className="text-xl font-semibold hover:text-primary">Contact Us</Link>
           </li>
         </ul>
       </div>

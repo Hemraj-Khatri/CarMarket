@@ -1,6 +1,7 @@
 import React from "react";
 
 import { category } from "../data.js";
+import { Link } from "react-router-dom";
 export default function Category() {
   return (
     <div className=" md:mt-24 my- 5">
@@ -9,7 +10,8 @@ export default function Category() {
       </h1>
       <div className="flex flex-wrap justify-center space-x-5 text-center ">
         {category.map((item) => (
-          <div
+          <Link
+          to={`/category/${item.name.toLowerCase()}`}
             key={item.id}
             className="border rounded-xl p-3 
                 items-center  flex flex-col hover:shadow-md cursor-pointer"
@@ -21,7 +23,7 @@ export default function Category() {
               className="border rounded-t-md"
             />
             <h1>{item.name}</h1>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

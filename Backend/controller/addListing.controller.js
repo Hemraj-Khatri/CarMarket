@@ -27,7 +27,23 @@ const AddListing = async (req, res) => {
       images,
     } = req.body;
 
-    if (!listingTitle || !tagline || !sellingPrice || !category || !condition || !make || !model || !year || !driveType || !transmission || !fuelType || !mileage || !door || !offerType || !description) {
+    if (
+      !listingTitle ||
+      !tagline ||
+      !sellingPrice ||
+      !category ||
+      !condition ||
+      !make ||
+      !model ||
+      !year ||
+      !driveType ||
+      !transmission ||
+      !fuelType ||
+      !mileage ||
+      !door ||
+      !offerType ||
+      !description
+    ) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -117,7 +133,7 @@ const getListById = async (req, res) => {
     const { id } = req.params;
 
     // Find the listing by ID and populate the createdBy field with user details
-    const listing = await Listing.findById(id).populate('createdBy');
+    const listing = await Listing.findById(id).populate("createdBy");
 
     if (!listing) {
       return res.status(404).json({
@@ -184,7 +200,9 @@ const getUsedListings = async (req, res) => {
 // method: "GET"
 const getCertifiedListings = async (req, res) => {
   try {
-    let certifiedListings = await Listing.find({ condition: "Certified Pre-Owned" });
+    let certifiedListings = await Listing.find({
+      condition: "Certified Pre-Owned",
+    });
     res.status(200).json({
       success: true,
       data: certifiedListings,
@@ -198,4 +216,102 @@ const getCertifiedListings = async (req, res) => {
   }
 };
 
-export { AddListing, allListings, recentListings, getListById, getNewListings, getUsedListings, getCertifiedListings };
+const getSedanCategory = async (req, res) => {
+  try {
+    let SedanCategory = await Listing.find({ category: "Sedan" });
+    res.status(200).json({ success: true, data: SedanCategory });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(404)
+      .json({ success: false, Message: "Failed to get SendanCategory cars" });
+  }
+};
+
+const getElectricCategory = async (req, res) => {
+  try {
+    let ElectricCategory = await Listing.find({ category: "Electric" });
+    res.status(200).json({ success: true, data: ElectricCategory });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(404)
+      .json({ success: false, Message: "Failed to get Electric Category" });
+  }
+};
+
+const getSUVCategory = async (req, res) => {
+  try {
+    let SUVCategory = await Listing.find({ category: "SUV" });
+    res.status(200).json({ success: true, data: SUVCategory });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(404)
+      .json({ success: false, Message: "Failed to get SUV Category" });
+  }
+};
+
+const getConvertibleCategory = async (req, res) => {
+  try {
+    let ConvertibleCategory = await Listing.find({ category: "Convertible" });
+    res.status(200).json({ success: true, data: ConvertibleCategory });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(404)
+      .json({ success: false, Message: "Failed to get Convertible Category" });
+  }
+};
+
+const getCoupeCategory = async (req, res) => {
+  try {
+    let CoupeCategory = await Listing.find({ category: "Coupe" });
+    res.status(200).json({ success: true, data: CoupeCategory });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(404)
+      .json({ success: false, Message: "Failed to get Coupe Category" });
+  }
+};
+
+const getVanCategory = async (req, res) => {
+  try {
+    let VanCategory = await Listing.find({ category: "Van" });
+    res.status(200).json({ success: true, data: VanCategory });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(404)
+      .json({ success: false, Message: "Failed to get Van Category" });
+  }
+};
+const getTruckCategory = async (req, res) => {
+  try {
+    let TruckCategory = await Listing.find({ category: "Truck" });
+    res.status(200).json({ success: true, data: TruckCategory });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(404)
+      .json({ success: false, Message: "Failed to get Truck Category" });
+  }
+};
+
+export {
+  AddListing,
+  allListings,
+  recentListings,
+  getListById,
+  getNewListings,
+  getUsedListings,
+  getCertifiedListings,
+  getSedanCategory,
+  getElectricCategory,
+  getSUVCategory,
+  getConvertibleCategory,
+  getCoupeCategory,
+  getVanCategory,
+  getTruckCategory,
+};

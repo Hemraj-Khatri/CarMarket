@@ -21,6 +21,8 @@ import CartPage from "./pages/CartPage.jsx";
 import NewPage from "./pages/NewPage.jsx";
 import SendMessage from "./pages/SendMessage.jsx";
 import ConditionPage from "./pages/ConditionPage.jsx";
+import CategoryPage from "./pages/CategoryPage.jsx";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,6 +37,7 @@ const router = createBrowserRouter(
       <Route path="new" element={<NewPage />} />
       <Route path="sendMessage" element={<SendMessage />} />
       <Route path="condition" element={<ConditionPage />} />
+      <Route path="/category/:name" element={<CategoryPage />} />
       <Route path="list-details/:id" element={<ListDetailPage />} />
     </Route>
   )
