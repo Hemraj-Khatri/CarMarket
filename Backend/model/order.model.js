@@ -9,9 +9,9 @@ const orderSchema = new mongoose.Schema(
     },
     orderItems: [
       {
-        name: { type: String, required: true },
-        image: { type: String, required: true },
-        price: { type: Number, required: true },
+        listingTitle: { type: String },
+        images: { type: String },
+        sellingPrice: { type: Number },
         listing: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Listing",
@@ -20,14 +20,13 @@ const orderSchema = new mongoose.Schema(
       },
     ],
     shippingAddress: {
-      recipient: { type: String, required: true },
-      phone: { type: String, required: true },
+      name: { type: String, required: true },
+      contact: { type: String, required: true },
       address: { type: String, required: true },
       city: { type: String, required: true },
     },
     itemPrice: {
       type: Number,
-      required: true,
     },
     shippingCharge: {
       type: Number,
@@ -35,7 +34,7 @@ const orderSchema = new mongoose.Schema(
     },
     totalPrice: {
       type: Number,
-      required: true,
+      // required: true,
     },
     isDelivered: {
       type: Boolean,

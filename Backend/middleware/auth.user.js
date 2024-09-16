@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
-import {User} from "../model/user.model.js"
-
+import { User } from "../model/user.model.js";
 
 const checkAuth = async (req, res, next) => {
   let token = req.cookies.token;
@@ -9,10 +8,12 @@ const checkAuth = async (req, res, next) => {
     err.status = 401;
     throw err;
   }
+  // let err = res.status(401).json({ Message: "You must be logged in !" });
+
   try {
     let { userId } = jwt.verify(token, process.env.JWT_SECRET);
     let userdetail = await User.findById(userId).select("-password");
-    req.user = userdetail; // confused
+    req.user = userdetail;
     next();
   } catch (error) {
     let err = new Error("Invalid Token");

@@ -2,33 +2,49 @@ import React from "react";
 import { allCartClear } from "../Slices/cartSlice";
 import { BASE_URL } from "../constant.js";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { usePlaceOrderMutation } from "../Slices/orderApiSlice.js";
+import { toast } from "react-toastify";
 
 function ReviewPage() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const { cartItems } = useSelector((state) => state.cart);
-  console.log(cart);
+  const [placeOrder, { isLoading }] = usePlaceOrderMutation();
 
-  const onSubmitHaldler = () => {
-    dispatch(allCartClear());
-    console.log("all are cleared");
-  };
-
+  // Calculate subTotalCost, deliveryCharge, and totalCost outside of onSubmitHaldler
   const subTotalCost = cartItems
     .reduce((acc, item) => acc + (parseFloat(item.sellingPrice) || 0), 0)
     .toFixed(2);
 
-  // Convert subTotalCost to a number for comparison
   const numericSubTotalCost = parseFloat(subTotalCost);
-
-  // Determine delivery charge based on subtotal cost
   const deliveryCharge = numericSubTotalCost > 400000 ? 0 : 1000;
-  // Calculate total cost
   const totalCost = (parseFloat(subTotalCost) + deliveryCharge).toFixed(2);
+  const navigation = useNavigate();
+  const onSubmitHaldler = async () => {
+    try {
+      let resp = await placeOrder({
+        orderItems: cart.cartItems.map((item) => ({
+          ...item,
+          images: `${BASE_URL}${item.images[0]}` || "", // Ensure the images field is a string (first image)
+        })),
+        shippingAddress: cart.shippingAddress,
+        itemPrice: subTotalCost,
+        shippingCharge: deliveryCharge,
+        totalPrice: totalCost, // Use totalCost instead of totalPrice
+      }).unwrap();
+
+      toast.success(resp.Message);
+      dispatch(allCartClear());
+      navigation(`/order/${resp.data._id}`);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.data.Message);
+    }
+  };
 
   return (
-    <div className="md:grid md:grid-cols-[2fr_1fr] px-20  gap-4">
+    <div className="md:grid md:grid-cols-[2fr_1fr] px-20 gap-4">
       <div>
         <h2 className="text-3xl py-4 font-semibold">Review </h2>
         <div className="space-y-2">
@@ -51,7 +67,7 @@ function ReviewPage() {
         </div>
         <div className="border space-y-px my-4 w-[100%] p-4">
           {cart.cartItems.map((item, index) => (
-            <div className="border flex items-center">
+            <div key={index} className="border flex items-center">
               <img
                 src={`${BASE_URL}${item.images}`}
                 alt="cart Image"

@@ -24,6 +24,7 @@ import ConditionPage from "./pages/ConditionPage.jsx";
 import CategoryPage from "./pages/CategoryPage.jsx";
 import ShippingAddressPage from "./pages/ShippingAddressPage.jsx";
 import ReviewPage from "./pages/ReviewPage.jsx";
+import OrderPage from "./pages/OrderPage.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
       <Route path="review" element={<ReviewPage />} />
       <Route path="/category/:name" element={<CategoryPage />} />
       <Route path="list-details/:id" element={<ListDetailPage />} />
+      <Route path="order/:id" element={<OrderPage />} />
     </Route>
   )
 );
