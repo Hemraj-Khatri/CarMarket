@@ -69,8 +69,17 @@ const cartSlice = createSlice({
         JSON.stringify(state.shippingAddress)
       );
     },
+
+    allCartClear: (state, action) => {
+      state.cartItems = [];
+      state.shippingAddress = {};
+      state.itemPrice = 0;
+      state.shippingCharge = 0;
+      state.totalPrice = 0;
+    },
   },
 });
 
-export const { addToCart, removeItem, saveShippingAddress } = cartSlice.actions;
+export const { addToCart, removeItem, saveShippingAddress, allCartClear } =
+  cartSlice.actions;
 export default cartSlice.reducer;
