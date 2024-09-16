@@ -13,6 +13,8 @@ function TruckCategoryPage() {
     <>
       {isLoading ? (
         <h1>Loading...</h1>
+      ) : error ? (
+        <h1>Error while loading</h1>
       ) : (
         <>
           <h1 className="px-20 font-semibold text-3xl py-5">

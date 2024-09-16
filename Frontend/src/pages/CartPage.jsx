@@ -112,9 +112,12 @@ function CartPage() {
                 </tr>
                 <tr>
                   <th colSpan={2}>
-                    <button className="btn bg-blue-600 hover:bg-blue-700 my-4 text-white">
+                    <Link
+                      to="/shippingAddress"
+                      className="btn bg-blue-600 hover:bg-blue-700 my-4 text-white"
+                    >
                       Process To Checkout ({cartItems.length})
-                    </button>
+                    </Link>
                   </th>
                 </tr>
               </tbody>

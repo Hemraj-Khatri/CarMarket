@@ -26,7 +26,7 @@ export default function Header() {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow md:py-4">
+    <div className="navbar  bg-base-100 shadow  md:py-4">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -52,7 +52,7 @@ export default function Header() {
             <li>
               <Link to="/">Home</Link>
             </li>
-        
+
             <li>
               <Link to="/condition">Condition</Link>
             </li>
@@ -71,14 +71,26 @@ export default function Header() {
       <div className="navbar-center hidden lg:flex">
         <ul className="flex hover:cursor-pointer md:gap-20">
           <li>
-            <Link to="/" className="text-xl font-semibold hover:text-primary">Home</Link>
+            <Link to="/" className="text-xl font-semibold hover:text-primary">
+              Home
+            </Link>
           </li>
-        
+
           <li>
-            <Link to="/condition" className="text-xl font-semibold hover:text-primary">Condition</Link>
+            <Link
+              to="/condition"
+              className="text-xl font-semibold hover:text-primary"
+            >
+              Condition
+            </Link>
           </li>
           <li>
-            <Link to="/contact" className="text-xl font-semibold hover:text-primary">Contact Us</Link>
+            <Link
+              to="/contact"
+              className="text-xl font-semibold hover:text-primary"
+            >
+              Contact Us
+            </Link>
           </li>
         </ul>
       </div>
@@ -86,7 +98,11 @@ export default function Header() {
       <div className="navbar-end md:pe-5">
         {userInfo && (
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
               <div className="w-10 rounded-full">
                 <img
                   alt="Profile"
@@ -104,7 +120,9 @@ export default function Header() {
                   {userInfo.fullName}
                 </Link>
               </li>
-              <li><Link>Settings</Link></li>
+              <li>
+                <Link>Settings</Link>
+              </li>
               <li>
                 <Link
                   onClick={logoutHandler}
@@ -116,9 +134,14 @@ export default function Header() {
             </ul>
           </div>
         )}
-        <Link to="/cart" className="flex items-center md:text-xl font-semibold md:mx-4">
+        <Link
+          to="/cart"
+          className="flex items-center md:text-xl font-semibold md:mx-4"
+        >
           <FaCartShopping /> Cart
-          {cartItems.length > 0 && <div className="badge badge-warning">{cartItems.length}</div>}
+          {cartItems.length > 0 && (
+            <div className="badge badge-warning">{cartItems.length}</div>
+          )}
         </Link>
         <Link
           to={userInfo ? "/profile" : "/login"}

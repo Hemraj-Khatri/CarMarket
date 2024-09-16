@@ -3,8 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 // Load cart from localStorage if available, else initialize with an empty array.
 const initialState = {
   cartItems: localStorage.getItem("cartItems")
-    ? JSON.parse(localStorage.getItem("cartItems"))
-    : [],
+    ? (() => {
+        const cartData = JSON.parse(localStorage.getItem("cartItems"));
+        return Array.isArray(cartData) ? cartData : [];
+      })()
+    : [], // Always default to an empty array if the cart is not in localStorage or invalid.
+  shippingAddress: localStorage.getItem("shippingAddress")
+    ? JSON.parse(localStorage.getItem("shippingAddress"))
+    : {}, // Default to an empty object for shipping address.
 };
 
 const cartSlice = createSlice({
@@ -33,7 +39,7 @@ const cartSlice = createSlice({
         );
       } else {
         // Otherwise, add new item
-        state.cartItems = [...state.cartItems, action.payload];
+        state.cartItems.push(action.payload); // Use push to add the new item to the array.
       }
 
       // Save updated cart to localStorage
@@ -55,8 +61,16 @@ const cartSlice = createSlice({
       // Save updated cart to localStorage
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+
+    saveShippingAddress: (state, action) => {
+      state.shippingAddress = action.payload;
+      localStorage.setItem(
+        "shippingAddress",
+        JSON.stringify(state.shippingAddress)
+      );
+    },
   },
 });
 
-export const { addToCart, removeItem } = cartSlice.actions;
+export const { addToCart, removeItem, saveShippingAddress } = cartSlice.actions;
 export default cartSlice.reducer;
