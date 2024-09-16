@@ -94,7 +94,10 @@ function ReviewPage() {
               </tr>
               <tr>
                 <th colSpan={2} className="text-center ">
-                  <button className="btn bg-blue-500 w-[50%] text-white my-4">
+                  <button
+                    className="btn bg-blue-500 w-[50%] text-white my-4"
+                    onClick={onSubmitHaldler}
+                  >
                     PlaceOrder
                   </button>
                 </th>
