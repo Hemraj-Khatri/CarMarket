@@ -24,11 +24,19 @@ const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    contactUser:builder.mutation({
-      query:(data)=>({
-        url:`${USER_URL}/contactUser`,
-        method:'POST',
-        body:data,
+    userUpdate: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `${USER_URL}/updateUser/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+
+    contactUser: builder.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/contactUser`,
+        method: "POST",
+        body: data,
       }),
     }),
 
@@ -48,4 +56,5 @@ export const {
   // useUpdateUserProfileMutation,
   useSignupMutation,
   useContactUserMutation,
+  useUserUpdateMutation,
 } = userApiSlice;

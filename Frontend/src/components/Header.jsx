@@ -12,6 +12,7 @@ export default function Header() {
   const [userLogout, { isLoading }] = useUserLogoutMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  console.log(userInfo);
 
   const logoutHandler = async () => {
     try {
@@ -144,7 +145,7 @@ export default function Header() {
           )}
         </Link>
         <Link
-          to={userInfo ? "/profile" : "/login"}
+          to={userInfo ? `/profile/${userInfo._id}` : "/login"}
           className="bg-blue-600 py-2 text-white rounded-md cursor-pointer px-4 hover:bg-blue-500"
         >
           Submit Listing

@@ -7,7 +7,8 @@ import { User } from "../model/user.model.js";
 //Signup or Register
 export const signup = async (req, res) => {
   try {
-    const { fullName, username, password, confirmPassword, gender, isAdmin } = req.body;
+    const { fullName, username, password, confirmPassword, gender, isAdmin } =
+      req.body;
     if (!fullName || !username || !password || !confirmPassword || !gender) {
       return res.status(400).json({ message: "All fields are required" });
     }
@@ -75,21 +76,21 @@ export const login = async (req, res) => {
     });
 
     return res
-  .status(200)
-  .cookie("token", token, {
-    maxAge: 1 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
-    sameSite: "strict",
-  })
-  .json({
-    Message: "login Successfully",
-    user: {
-      username: user.username,
-      fullName: user.fullName,
-      profilePhoto: user.profilePhoto,
-    },
-  });
-
+      .status(200)
+      .cookie("token", token, {
+        maxAge: 1 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        sameSite: "strict",
+      })
+      .json({
+        Message: "login Successfully",
+        user: {
+          username: user.username,
+          fullName: user.fullName,
+          profilePhoto: user.profilePhoto,
+          _id: user._id,
+        },
+      });
   } catch (error) {
     console.log(error);
   }
@@ -108,23 +109,20 @@ export const logout = (req, res) => {
 };
 //uri: /api/v1/users/allUsers
 // method:"GET"
-export const getAllusers = async(req, res)=>{
+export const getAllusers = async (req, res) => {
   try {
-    let users =await User.find().select("-password");
+    let users = await User.find().select("-password");
     res.send(users);
-    
   } catch (error) {
     console.log(error);
-    
   }
-}
-
+};
 
 //uri: /api/v1/users/:id
 // method: "GET"
 export const getUserById = async (req, res) => {
   try {
-    const userId = req.params.id;  // Match the parameter name
+    const userId = req.params.id; // Match the parameter name
     if (!userId) {
       return res.status(400).json({ message: "User ID is required" });
     }
@@ -141,3 +139,51 @@ export const getUserById = async (req, res) => {
   }
 };
 
+//uri: /api/v1/users/:id
+// method: "PUT"
+export const updateUser = async (req, res) => {
+  try {
+    const userId = req.params.id; // Get user ID from request params
+    const { fullName, username, password, confirmPassword } = req.body;
+
+    // Ensure required fields are provided
+    if (!fullName || !username) {
+      return res
+        .status(400)
+        .json({ message: "Full Name and Username are required." });
+    }
+
+    // Check if password is being updated and matches confirmPassword
+    if (password && password !== confirmPassword) {
+      return res.status(400).json({ message: "Passwords do not match." });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Update user fields
+    user.fullName = fullName || user.fullName;
+    user.username = username || user.username;
+
+    // Hash the new password if it's being updated
+    if (password) {
+      user.password = await bcrypt.hash(password, 10);
+    }
+
+    // Save the updated user
+    await user.save();
+
+    return res.status(200).json({
+      message: "User updated successfully.",
+      user: {
+        username: user.username,
+        fullName: user.fullName,
+      },
+    });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    return res.status(500).json({ message: "Server error." });
+  }
+};
