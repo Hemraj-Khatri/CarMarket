@@ -7,12 +7,14 @@ const listingApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: `${LISTING_URL}/allListings`,
       }),
+      providesTags: ["CarProduct"],
     }),
 
     getListById: builder.query({
       query: (id) => ({
         url: `${LISTING_URL}/${id}`,
       }),
+      providesTags: ["CarProduct"],
     }),
     addNewListing: builder.mutation({
       query: (data) => ({
@@ -20,6 +22,7 @@ const listingApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["CarProduct"],
     }),
 
     editListing: builder.mutation({
@@ -28,6 +31,7 @@ const listingApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
       }),
+      invalidatesTags: ["CarProduct"],
     }),
 
     deleteListing: builder.mutation({
@@ -35,12 +39,14 @@ const listingApiSlice = apiSlice.injectEndpoints({
         url: `${LISTING_URL}/delete/${id}`,
         method: "DELETe",
       }),
+      invalidatesTags: ["CarProduct"],
     }),
 
     recentAddLists: builder.query({
       query: () => ({
         url: `${LISTING_URL}/recentListings`,
       }),
+      providesTags: ["CarProduct"],
     }),
 
     uploadImage: builder.mutation({
@@ -55,29 +61,34 @@ const listingApiSlice = apiSlice.injectEndpoints({
       query: (id) => ({
         url: `${LISTING_URL}/${id}`,
       }),
+      providesTags: ["CarProduct"],
     }),
 
     getNewLIstings: builder.query({
       query: () => ({
         url: `${LISTING_URL}/newListings`,
       }),
+      providesTags: ["CarProduct"],
     }),
 
     getUsedListings: builder.query({
       query: () => ({
         url: `${LISTING_URL}/usedListings`,
       }),
+      providesTags: ["CarProduct"],
     }),
 
     getCertifiedListings: builder.query({
       query: () => ({
         url: `${LISTING_URL}/certifiedListings`,
       }),
+      providesTags: ["CarProduct"],
     }),
     getSedanCategory: builder.query({
       query: () => ({
         url: `${LISTING_URL}/sedanCategory`,
       }),
+      providesTags: ["CarProduct"],
     }),
 
     getElectricCategory: builder.query({
@@ -90,12 +101,14 @@ const listingApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: `${LISTING_URL}/SUVCategory`,
       }),
+      providesTags: ["CarProduct"],
     }),
 
     getConvertibleCategory: builder.query({
       query: () => ({
         url: `${LISTING_URL}/ConvertibleCategory`,
       }),
+      providesTags: ["CarProduct"],
     }),
     getCoupeCategory: builder.query({
       query: () => ({
@@ -106,12 +119,23 @@ const listingApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: `${LISTING_URL}/VanCategory`,
       }),
+      providesTags: ["CarProduct"],
     }),
 
     getTruckCategory: builder.query({
       query: () => ({
         url: `${LISTING_URL}/TruckCategory`,
       }),
+      providesTags: ["CarProduct"],
+    }),
+
+    searchListings: builder.query({
+      query: (queryParams) => ({
+        url: `${LISTING_URL}/search`,
+        method: "GET",
+        params: queryParams, // Pass search parameters as query params
+      }),
+      providesTags: ["CarProduct"],
     }),
   }),
 });
@@ -135,4 +159,5 @@ export const {
   useGetCoupeCategoryQuery,
   useGetVanCategoryQuery,
   useGetTruckCategoryQuery,
+  useSearchListingsQuery,
 } = listingApiSlice;

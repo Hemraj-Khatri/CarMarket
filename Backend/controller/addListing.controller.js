@@ -386,6 +386,38 @@ const deleteListing = async (req, res) => {
   res.status(200).json({ message: "Listing Car Removed" });
 };
 
+// Search listings
+// /api/v1/listing/search
+// method: "GET"
+const searchListings = async (req, res) => {
+  try {
+    const { carType, category, priceRange } = req.query;
+
+    // Build query object
+    let query = {};
+
+    if (carType) query.condition = carType;
+    if (category) query.category = category;
+    if (priceRange) {
+      const [minPrice, maxPrice] = priceRange.split("-").map(Number);
+      query.sellingPrice = { $gte: minPrice, $lte: maxPrice };
+    }
+
+    let listings = await Listing.find(query);
+
+    res.status(200).json({
+      success: true,
+      data: listings,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to search listings",
+    });
+  }
+};
+
 export {
   AddListing,
   allListings,
@@ -403,4 +435,5 @@ export {
   getTruckCategory,
   editListing,
   deleteListing,
+  searchListings,
 };

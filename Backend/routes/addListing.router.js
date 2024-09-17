@@ -16,6 +16,7 @@ import {
   getUsedListings,
   getVanCategory,
   recentListings,
+  searchListings,
 } from "../controller/addListing.controller.js";
 import { checkAdmin, checkAuth } from "../middleware/auth.user.js";
 
@@ -35,6 +36,7 @@ router.get("/ConvertibleCategory", getConvertibleCategory);
 router.get("/CoupeCategory", getCoupeCategory);
 router.get("/VanCategory", getVanCategory);
 router.get("/TruckCategory", getTruckCategory);
+router.get("/search", searchListings);
 router.put("/edit/:id", checkAuth, checkAdmin, editListing);
 router.delete("/delete/:id", checkAuth, checkAdmin, deleteListing);
 router.get("/:id", getListById);
