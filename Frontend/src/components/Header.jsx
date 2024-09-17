@@ -12,7 +12,6 @@ export default function Header() {
   const [userLogout, { isLoading }] = useUserLogoutMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(userInfo);
 
   const logoutHandler = async () => {
     try {
