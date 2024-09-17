@@ -3,10 +3,11 @@ import { useGetOrderByIdQuery } from "../Slices/orderApiSlice";
 // import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import Message from "../components/Message";
+import { useSelector } from "react-redux";
 function OrderPage() {
   const { id } = useParams();
   const { data: order, refetch, isLoading, error } = useGetOrderByIdQuery(id);
-  console.log(order);
+  const { userInfo } = useSelector((state) => state.auth);
 
   return (
     <div className="md:grid md:grid-cols-[2fr_1fr] gap-4 px-4 md:px-20">
@@ -99,10 +100,11 @@ function OrderPage() {
                       </td>
                     </tr>
                     <tr>
-                      <td colSpan={2} className="text-end px-4 py-2 border-b">
-                        {" "}
-                        <span>Edit</span>
-                      </td>
+                      {userInfo.isAdmin && (
+                        <td colSpan={2} className="text-end px-4 py-2 border-b">
+                          <span>Edit</span>
+                        </td>
+                      )}
                     </tr>
                   </tbody>
                 </table>

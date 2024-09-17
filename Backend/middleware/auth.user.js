@@ -4,9 +4,7 @@ import { User } from "../model/user.model.js";
 const checkAuth = async (req, res, next) => {
   let token = req.cookies.token;
   if (!token) {
-    let err = new Error("You must be logged in !");
-    err.status = 401;
-    throw err;
+    return res.status(401).json("You must be logged in !");
   }
   // let err = res.status(401).json({ Message: "You must be logged in !" });
 

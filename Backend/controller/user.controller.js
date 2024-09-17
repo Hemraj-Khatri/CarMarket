@@ -89,6 +89,7 @@ export const login = async (req, res) => {
           fullName: user.fullName,
           profilePhoto: user.profilePhoto,
           _id: user._id,
+          isAdmin: user.isAdmin,
         },
       });
   } catch (error) {

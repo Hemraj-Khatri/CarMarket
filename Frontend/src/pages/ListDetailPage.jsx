@@ -30,7 +30,10 @@ import { addToCart } from "../Slices/cartSlice";
 function ListDetailPage() {
   const { id } = useParams();
   const { data: getCarById, isLoading, error } = useGetCarByIdQuery(id);
+
   const { userInfo } = useSelector((state) => state.auth);
+  console.log(userInfo);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -41,17 +44,51 @@ function ListDetailPage() {
 
   const OnMessageOwnerButtonClick = async () => {
     try {
-      await SenBridUser.createSendBirdUser(userId, nickName, profileUrl);
+      console.log("Message Owner Button Clicked");
+      console.log("UserId: ", userId);
+      console.log("OwnerId: ", OwnerId);
+
+      // Try to create a SendBird user for the current user
+      try {
+        await SenBridUser.createSendBirdUser(userId, nickName, profileUrl);
+        console.log("Created SendBird user for current user");
+      } catch (error) {
+        if (error.response?.data?.code === 400202) {
+          console.log(
+            `User ${userId} already exists in SendBird, proceeding...`
+          );
+        } else {
+          throw error; // If it's a different error, rethrow it
+        }
+      }
+
+      // Try to create a SendBird user for the owner of the car
       const OwnerName = getCarById?.data?.createdBy?.fullName;
       const profilePhoto = getCarById?.data?.createdBy?.profilePhoto;
-      await SenBridUser.createSendBirdUser(OwnerId, OwnerName, profilePhoto);
+      try {
+        await SenBridUser.createSendBirdUser(OwnerId, OwnerName, profilePhoto);
+        console.log("Created SendBird user for the owner");
+      } catch (error) {
+        if (error.response?.data?.code === 400202) {
+          console.log(
+            `Owner ${OwnerId} already exists in SendBird, proceeding...`
+          );
+        } else {
+          throw error; // If it's a different error, rethrow it
+        }
+      }
+
+      // Create a chat channel between the current user and the owner
       await SenBridUser.CreateSendBirdChannel(
         [userId, OwnerId],
         getCarById?.data?.listingTitle
       );
-      navigate("/profile");
+      console.log("Created SendBird chat channel");
+
+      // Navigate to the profile page after creating the chat
+      navigate(`/profile/${userInfo._id}`);
     } catch (error) {
-      console.log(error);
+      console.error("Error creating chat channel:", error);
     }
   };
 

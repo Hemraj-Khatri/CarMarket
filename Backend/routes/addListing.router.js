@@ -20,7 +20,7 @@ import { checkAdmin, checkAuth } from "../middleware/auth.user.js";
 const router = express.Router();
 
 // Routes
-router.post("/addListing", checkAuth, AddListing);
+router.post("/addListing", checkAuth, checkAdmin, AddListing);
 router.get("/allListings", allListings);
 router.get("/recentListings", recentListings);
 router.get("/newListings", getNewListings);

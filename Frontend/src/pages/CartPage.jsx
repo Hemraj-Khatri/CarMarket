@@ -7,6 +7,7 @@ import { removeItem } from "../Slices/cartSlice";
 function CartPage() {
   const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.auth);
 
   const removeCartItem = (itemId) => {
     dispatch(removeItem(itemId));
@@ -113,7 +114,8 @@ function CartPage() {
                 <tr>
                   <th colSpan={2}>
                     <Link
-                      to="/shippingAddress"
+                      // to="/shippingAddress"
+                      to={userInfo ? "/shippingAddress" : "/login"}
                       className="btn bg-blue-600 hover:bg-blue-700 my-4 text-white"
                     >
                       Process To Checkout ({cartItems.length})

@@ -5,12 +5,12 @@ import {
   getOrderById,
   getOrders,
 } from "../controller/order.controller.js";
-import { checkAuth } from "../middleware/auth.user.js";
+import { checkAdmin, checkAuth } from "../middleware/auth.user.js";
 
 const router = express.Router();
 router.post("/addOrder", checkAuth, AddOrder);
-router.get("/getOrders", checkAuth, getOrders);
-router.get("/myorders", checkAuth, getMyOrder);
+router.get("/getOrders", checkAuth, checkAdmin, getOrders);
+router.get("/myorders/:id", checkAuth, getMyOrder);
 router.get("/:id", checkAuth, getOrderById);
 
 export default router;
