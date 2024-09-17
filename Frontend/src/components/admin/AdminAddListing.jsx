@@ -1,13 +1,30 @@
 import React from "react";
-import { useGetAllListsQuery } from "../../Slices/listingApiSlice";
+import {
+  useDeleteListingMutation,
+  useGetAllListsQuery,
+} from "../../Slices/listingApiSlice";
 import { FaTrash, FaEdit } from "react-icons/fa";
+import { toast } from "react-toastify";
 // import { addToCart } from "../../Slices/cartSlice";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 function AdminAddListing() {
   const { data: getAllLists, isLoading, error } = useGetAllListsQuery();
+  const [deleteListing, { isLoading: deleteLoading }] =
+    useDeleteListingMutation();
 
+  const deleteListingHaldler = async (id) => {
+    if (window.confirm("Are you sure to delete Car?"))
+      try {
+        let resp = await deleteListing(id).unwrap();
+
+        toast.success(resp.message);
+      } catch (error) {
+        console.log(error.message);
+        toast;
+      }
+  };
   return (
     <div className="my-5">
       {isLoading ? (
@@ -61,12 +78,18 @@ function AdminAddListing() {
                       <td className="py-3 px-2 text-sm border-b border-gray-300">
                         {listing.condition}
                       </td>
-                      <td className="py-3 px-2 text-sm border-b border-gray-300 text-center space-x-4">
+                      <td className="py-3 px-2 text-sm border-b  items-center border-gray-300 text-center space-x-4">
                         {/* Pass only the specific listing to the handler */}
                         <Link to={`/editListing/${listing._id}`}>
-                          <FaEdit />
+                          <button>
+                            <FaEdit />
+                          </button>
                         </Link>
-                        <button className="text-red-600">
+
+                        <button
+                          onClick={() => deleteListingHaldler(listing._id)}
+                          className="text-red-600"
+                        >
                           <FaTrash />
                         </button>
                       </td>

@@ -30,6 +30,13 @@ const listingApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+    deleteListing: builder.mutation({
+      query: (id) => ({
+        url: `${LISTING_URL}/delete/${id}`,
+        method: "DELETe",
+      }),
+    }),
+
     recentAddLists: builder.query({
       query: () => ({
         url: `${LISTING_URL}/recentListings`,
@@ -114,6 +121,7 @@ export const {
   useGetListByIdQuery,
   useAddNewListingMutation,
   useEditListingMutation,
+  useDeleteListingMutation,
   useUploadImageMutation,
   useRecentAddListsQuery,
   useGetCarByIdQuery,

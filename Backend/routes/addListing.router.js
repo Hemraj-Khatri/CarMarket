@@ -2,6 +2,7 @@ import express from "express";
 import {
   AddListing,
   allListings,
+  deleteListing,
   editListing,
   getCertifiedListings,
   getConvertibleCategory,
@@ -35,6 +36,7 @@ router.get("/CoupeCategory", getCoupeCategory);
 router.get("/VanCategory", getVanCategory);
 router.get("/TruckCategory", getTruckCategory);
 router.put("/edit/:id", checkAuth, checkAdmin, editListing);
+router.delete("/delete/:id", checkAuth, checkAdmin, deleteListing);
 router.get("/:id", getListById);
 
 export default router;

@@ -373,6 +373,19 @@ const editListing = async (req, res) => {
   }
 };
 
+// Delete a listing by ID
+// /api/v1/listing/delete/:id
+// method: "delete"
+const deleteListing = async (req, res) => {
+  let id = req.params.id;
+  let listing = await Listing.findById(id);
+  if (!listing) {
+    return res.status(404).json({ message: "Listing car is not found" });
+  }
+  await Listing.findByIdAndDelete(id);
+  res.status(200).json({ message: "Listing Car Removed" });
+};
+
 export {
   AddListing,
   allListings,
@@ -388,5 +401,6 @@ export {
   getCoupeCategory,
   getVanCategory,
   getTruckCategory,
-  editListing, // Export the new function
+  editListing,
+  deleteListing,
 };
