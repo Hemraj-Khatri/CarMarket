@@ -26,6 +26,8 @@ import ShippingAddressPage from "./pages/ShippingAddressPage.jsx";
 import ReviewPage from "./pages/ReviewPage.jsx";
 import OrderPage from "./pages/OrderPage.jsx";
 import EditListing from "./pages/admin/EditListing.jsx";
+import AdminRoute from "./components/AdminRoute.jsx";
+import NoPageFound from "./pages/NoPageFound.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,8 +46,20 @@ const router = createBrowserRouter(
       <Route path="review" element={<ReviewPage />} />
       <Route path="/category/:name" element={<CategoryPage />} />
       <Route path="list-details/:id" element={<ListDetailPage />} />
-      <Route path="/editListing" element={<EditListing />} />
       <Route path="order/:id" element={<OrderPage />} />
+      <Route path="*" element={<NoPageFound />} />
+
+      <Route path="" element={<AdminRoute />}>
+        <Route path="/editListing" element={<EditListing />} />
+
+        {/* <Route path="/admin/orders" element={<OrderListPage />} />
+        <Route path="/admin/products" element={<ProductListPage />} />
+        <Route
+          path="/admin/products/page/:pageNumber"
+          element={<ProductListPage />}
+        />
+        <Route path="/admin/products/:id/edit" element={<ProductEditPage />} /> */}
+      </Route>
     </Route>
   )
 );
