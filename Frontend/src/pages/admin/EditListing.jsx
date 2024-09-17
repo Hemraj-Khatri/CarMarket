@@ -8,6 +8,7 @@ import carDetails from "../../carDetails.json";
 import { toast } from "react-toastify";
 import {
   useAddNewListingMutation,
+  useEditListingMutation,
   useGetListByIdQuery,
 } from "../../Slices/listingApiSlice";
 import { useNavigate, useParams } from "react-router-dom";
@@ -15,6 +16,8 @@ import { FaClipboardList } from "react-icons/fa";
 
 export default function ListingForm() {
   const { id } = useParams();
+  const [editListing, { isLoading }] = useEditListingMutation();
+
   const {
     data: getListById,
     isLoading: getListByIdisLoading,
@@ -43,7 +46,6 @@ export default function ListingForm() {
     images: [],
   });
 
-  const [addNewListing, { isLoading, error }] = useAddNewListingMutation();
   const navigate = useNavigate();
 
   // Populate formData when getListById data is available
@@ -104,12 +106,58 @@ export default function ListingForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let resp = await addNewListing(formData).unwrap();
-      navigate("/");
+      const {
+        listingTitle,
+        tagline,
+        originalPrice,
+        sellingPrice,
+        category,
+        condition,
+        make,
+        model,
+        year,
+        driveType,
+        transmission,
+        fuelType,
+        mileage,
+        cylinder,
+        door,
+        offerType,
+        description,
+        features,
+        images,
+      } = formData;
+
+      let resp = await editListing({
+        id,
+        data: {
+          listingTitle,
+          tagline,
+          originalPrice,
+          sellingPrice,
+          category,
+          condition,
+          make,
+          model,
+          year,
+          driveType,
+          transmission,
+          fuelType,
+          mileage,
+          cylinder,
+          door,
+          offerType,
+          description,
+          features,
+          images,
+        },
+      }).unwrap();
+      console.log(resp);
       toast.success(resp.message);
-    } catch (err) {
-      console.error(err);
-      toast.error(err.data.message);
+      navigate("/"); // Redirect on success
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update listing");
     }
   };
 

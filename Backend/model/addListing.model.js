@@ -6,9 +6,7 @@ const listingSchema = new mongoose.Schema(
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User", // Reference to the User model
-      
     },
-
 
     // Car Details
     listingTitle: {
@@ -100,9 +98,9 @@ const listingSchema = new mongoose.Schema(
       enum: ["Buy", "Hot Offer", "Sell", "Urgent"],
       required: true,
     },
-    description:{
-      type:String, 
-      required: true,
+    description: {
+      type: String,
+      required: false,
     },
 
     // Features (checkboxes)

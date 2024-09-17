@@ -299,6 +299,80 @@ const getTruckCategory = async (req, res) => {
   }
 };
 
+// Edit a listing by ID
+// /api/v1/listing/edit/:id
+// method: "PUT"
+
+const editListing = async (req, res) => {
+  try {
+    const listingId = req.params.id;
+
+    // Extract data from the request body
+    const {
+      listingTitle,
+      tagline,
+      originalPrice,
+      sellingPrice,
+      category,
+      condition,
+      make,
+      model,
+      year,
+      driveType,
+      transmission,
+      fuelType,
+      mileage,
+      cylinder,
+      door,
+      offerType,
+      description,
+      features,
+      images,
+    } = req.body;
+
+    // Find the listing by ID
+    const listing = await Listing.findById(listingId);
+    if (!listing) {
+      return res.status(404).json({ message: "Listing not found" });
+    }
+
+    // Update listing fields only if new values are provided
+    listing.listingTitle = listingTitle || listing.listingTitle;
+    listing.tagline = tagline || listing.tagline;
+    listing.originalPrice = originalPrice || listing.originalPrice;
+    listing.sellingPrice = sellingPrice || listing.sellingPrice;
+    listing.category = category || listing.category;
+    listing.condition = condition || listing.condition;
+    listing.make = make || listing.make;
+    listing.model = model || listing.model;
+    listing.year = year || listing.year;
+    listing.driveType = driveType || listing.driveType;
+    listing.transmission = transmission || listing.transmission;
+    listing.fuelType = fuelType || listing.fuelType;
+    listing.mileage = mileage || listing.mileage;
+    listing.cylinder = cylinder || listing.cylinder;
+    listing.door = door || listing.door;
+    listing.offerType = offerType || listing.offerType;
+    listing.description = description || listing.description; // Must include this if it's required
+    listing.features = features || listing.features;
+    listing.images = images || listing.images;
+
+    // Save the updated listing
+    const updatedListing = await listing.save();
+    return res.status(200).json({
+      message: "Listing updated successfully",
+      listing: updatedListing,
+    });
+  } catch (error) {
+    console.error("Error updating listing:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update listing",
+      error: error.message,
+    });
+  }
+};
+
 export {
   AddListing,
   allListings,
@@ -314,4 +388,5 @@ export {
   getCoupeCategory,
   getVanCategory,
   getTruckCategory,
+  editListing, // Export the new function
 };

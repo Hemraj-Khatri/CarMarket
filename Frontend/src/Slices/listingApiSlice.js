@@ -22,6 +22,14 @@ const listingApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+    editListing: builder.mutation({
+      query: ({ data, id }) => ({
+        url: `${LISTING_URL}/edit/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+
     recentAddLists: builder.query({
       query: () => ({
         url: `${LISTING_URL}/recentListings`,
@@ -105,6 +113,7 @@ export const {
   useGetAllListsQuery,
   useGetListByIdQuery,
   useAddNewListingMutation,
+  useEditListingMutation,
   useUploadImageMutation,
   useRecentAddListsQuery,
   useGetCarByIdQuery,
