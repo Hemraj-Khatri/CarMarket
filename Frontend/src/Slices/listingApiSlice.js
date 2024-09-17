@@ -8,6 +8,12 @@ const listingApiSlice = apiSlice.injectEndpoints({
         url: `${LISTING_URL}/allListings`,
       }),
     }),
+
+    getListById: builder.query({
+      query: (id) => ({
+        url: `${LISTING_URL}/${id}`,
+      }),
+    }),
     addNewListing: builder.mutation({
       query: (data) => ({
         url: `${LISTING_URL}/addListing`,
@@ -97,6 +103,7 @@ const listingApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetAllListsQuery,
+  useGetListByIdQuery,
   useAddNewListingMutation,
   useUploadImageMutation,
   useRecentAddListsQuery,

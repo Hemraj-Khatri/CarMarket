@@ -32,7 +32,6 @@ function ListDetailPage() {
   const { data: getCarById, isLoading, error } = useGetCarByIdQuery(id);
 
   const { userInfo } = useSelector((state) => state.auth);
-  console.log(userInfo);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
